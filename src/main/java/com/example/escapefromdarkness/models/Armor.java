@@ -1,0 +1,27 @@
+package com.example.escapefromdarkness.models;
+
+import lombok.Data;
+
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.Id;
+
+@Data
+@Entity
+public class Armor {
+
+  @Id
+  private String id;
+
+  @Column(length = 2000)
+  private String description;
+
+  @Column(length = 2000)
+  private String slug;
+
+  private int price;
+
+  private int defense;
+
+  private int hp;
+}
