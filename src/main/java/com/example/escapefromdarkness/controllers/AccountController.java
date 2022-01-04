@@ -1,6 +1,7 @@
 package com.example.escapefromdarkness.controllers;
 
 import com.example.escapefromdarkness.dto.AccountCreateDto;
+import com.example.escapefromdarkness.dto.AccountLoginDto;
 import com.example.escapefromdarkness.models.Account;
 import com.example.escapefromdarkness.services.AccountService;
 import lombok.AllArgsConstructor;
@@ -26,8 +27,13 @@ public class AccountController {
     return ResponseEntity.ok(accountService.findOne(id));
   }
 
-  @PostMapping()
+  @PostMapping("/register")
   public ResponseEntity<Account> create(@RequestBody AccountCreateDto accountCreateDto) {
     return ResponseEntity.ok(accountService.create(accountCreateDto));
   }
+
+//  @PostMapping("/login")
+//  public ResponseEntity<Account> login(@RequestBody AccountLoginDto accountLoginDto) {
+//    return ResponseEntity.ok(accountService.login(accountLoginDto));
+//  }
 }
