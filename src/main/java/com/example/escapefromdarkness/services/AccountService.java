@@ -3,7 +3,9 @@ package com.example.escapefromdarkness.services;
 import com.example.escapefromdarkness.dto.AccountCreateDto;
 import com.example.escapefromdarkness.dto.AccountLoginDto;
 import com.example.escapefromdarkness.models.Account;
+import com.example.escapefromdarkness.models.Setting;
 import com.example.escapefromdarkness.repositories.AccountRepository;
+import com.example.escapefromdarkness.repositories.SettingRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.authentication.AuthenticationManager;
@@ -21,6 +23,7 @@ import java.util.List;
 public class AccountService {
 
   private final AccountRepository accountRepository;
+  private final SettingRepository settingRepository;
   private final BCryptPasswordEncoder bCryptPasswordEncoder;
   private final AuthenticationManager authenticationManager;
 
@@ -46,6 +49,15 @@ public class AccountService {
     account.setPassword(bCryptPasswordEncoder.encode(accountCreateDto.getPassword()));
     account.setX(0.0);
     account.setY(0.0);
+
+    Setting setting = new Setting();
+    setting.setUsername(account.getUsername());
+    setting.setHasEffect(true);
+    setting.setHasMusic(true);
+    setting.setVolume(50);
+    settingRepository.save(setting);
+
+    account.setSetting(setting);
 
     return accountRepository.save(account);
 
