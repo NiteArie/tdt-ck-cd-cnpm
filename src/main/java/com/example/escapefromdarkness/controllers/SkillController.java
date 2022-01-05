@@ -2,7 +2,7 @@ package com.example.escapefromdarkness.controllers;
 
 import com.example.escapefromdarkness.models.Skill;
 import com.example.escapefromdarkness.services.SkillService;
-import lombok.AllArgsConstructor;
+import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -13,7 +13,7 @@ import java.util.List;
 
 @RestController
 @RequestMapping("/skills")
-@AllArgsConstructor
+@RequiredArgsConstructor
 public class SkillController {
 
   private final SkillService skillService;

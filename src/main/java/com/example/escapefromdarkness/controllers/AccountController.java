@@ -5,6 +5,7 @@ import com.example.escapefromdarkness.dto.AccountLoginDto;
 import com.example.escapefromdarkness.models.Account;
 import com.example.escapefromdarkness.services.AccountService;
 import lombok.AllArgsConstructor;
+import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -12,7 +13,7 @@ import java.util.List;
 
 @RestController
 @RequestMapping("/accounts")
-@AllArgsConstructor
+@RequiredArgsConstructor
 public class AccountController {
 
   private final AccountService accountService;
