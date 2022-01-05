@@ -2,6 +2,7 @@ package com.example.escapefromdarkness.controllers;
 
 import com.example.escapefromdarkness.dto.AccountCreateDto;
 import com.example.escapefromdarkness.dto.AccountLoginDto;
+import com.example.escapefromdarkness.exception.InvalidRequestException;
 import com.example.escapefromdarkness.models.Account;
 import com.example.escapefromdarkness.services.AccountService;
 import lombok.AllArgsConstructor;
@@ -29,7 +30,7 @@ public class AccountController {
   }
 
   @PostMapping("/register")
-  public ResponseEntity<Account> create(@RequestBody AccountCreateDto accountCreateDto) {
+  public ResponseEntity<Account> create(@RequestBody AccountCreateDto accountCreateDto) throws InvalidRequestException {
     return ResponseEntity.ok(accountService.create(accountCreateDto));
   }
 

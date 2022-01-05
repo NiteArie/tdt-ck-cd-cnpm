@@ -2,6 +2,7 @@ package com.example.escapefromdarkness.services;
 
 import com.example.escapefromdarkness.dto.AccountCreateDto;
 import com.example.escapefromdarkness.dto.AccountLoginDto;
+import com.example.escapefromdarkness.exception.InvalidRequestException;
 import com.example.escapefromdarkness.models.Account;
 import com.example.escapefromdarkness.models.Setting;
 import com.example.escapefromdarkness.repositories.AccountRepository;
@@ -40,7 +41,12 @@ public class AccountService {
   }
 
   @Transactional
-  public Account create(AccountCreateDto accountCreateDto) {
+  public Account create(AccountCreateDto accountCreateDto) throws InvalidRequestException {
+
+    if (accountRepository.existsById(accountCreateDto.getUsername())) {
+      throw new InvalidRequestException("Username already exist!");
+    }
+
     Account account = new Account();
     account.setCoin(0);
     account.setCurrentHealth(100);
