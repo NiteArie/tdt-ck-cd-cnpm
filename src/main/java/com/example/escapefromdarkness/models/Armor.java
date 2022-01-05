@@ -21,6 +21,4 @@ public class Armor {
   private int price;
 
   private int defense;
-
-  private int hp;
 }
