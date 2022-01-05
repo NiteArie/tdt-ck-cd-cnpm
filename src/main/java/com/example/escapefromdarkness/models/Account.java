@@ -39,4 +39,8 @@ public class Account {
   @OneToOne
   @JoinColumn(name = "idInventory")
   private Inventory inventory;
+
+  @OneToOne
+  @JoinColumn(name = "idSkill")
+  private Skill skill;
 }
