@@ -13,11 +13,10 @@ public class Armor {
   @Id
   private String id;
 
-  @Column(length = 2000)
-  private String description;
+  private String name;
 
   @Column(length = 2000)
-  private String slug;
+  private String description;
 
   private int price;
 

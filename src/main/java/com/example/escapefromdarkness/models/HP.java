@@ -17,9 +17,6 @@ public class HP {
   @Column(length = 2000)
   private String description;
 
-  @Column(length = 2000)
-  private String slug;
-
   private int price;
 
   private int rateHP;
