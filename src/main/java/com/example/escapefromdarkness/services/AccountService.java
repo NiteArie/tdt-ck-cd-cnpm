@@ -5,6 +5,7 @@ import com.example.escapefromdarkness.exception.InvalidRequestException;
 import com.example.escapefromdarkness.models.Account;
 import com.example.escapefromdarkness.models.Setting;
 import com.example.escapefromdarkness.repositories.AccountRepository;
+import com.example.escapefromdarkness.repositories.LevelRepository;
 import com.example.escapefromdarkness.repositories.SettingRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.authentication.AuthenticationManager;
@@ -20,6 +21,7 @@ public class AccountService {
 
   private final AccountRepository accountRepository;
   private final SettingRepository settingRepository;
+  private final LevelRepository levelRepository;
   private final BCryptPasswordEncoder bCryptPasswordEncoder;
   private final AuthenticationManager authenticationManager;
 
@@ -43,13 +45,18 @@ public class AccountService {
     }
 
     Account account = new Account();
-    account.setCoin(0);
-    account.setCurrentHealth(100);
-    account.setCurrentMana(100);
+    account.setCoin(200);
+    account.setCurrentHealth(1000);
+    account.setCurrentMana(1000);
     account.setUsername(accountCreateDto.getUsername());
     account.setPassword(bCryptPasswordEncoder.encode(accountCreateDto.getPassword()));
-    account.setX(0.0);
-    account.setY(0.0);
+    account.setX(10.0);
+    account.setY(-6.0);
+
+    var level = levelRepository.findById("1");
+    if (level.isPresent()) {
+      account.setLevel(level.get());
+    }
 
     Setting setting = new Setting();
     setting.setUsername(account.getUsername());
