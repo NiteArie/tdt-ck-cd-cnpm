@@ -1,11 +1,14 @@
 package com.example.escapefromdarkness.controllers;
 
 import com.example.escapefromdarkness.dto.AccountCreateDto;
-import com.example.escapefromdarkness.dto.AccountLoginDto;
+import com.example.escapefromdarkness.dto.AccountLevelUpdateDto;
+import com.example.escapefromdarkness.dto.AccountSettingUpdateDto;
 import com.example.escapefromdarkness.exception.InvalidRequestException;
 import com.example.escapefromdarkness.models.Account;
+import com.example.escapefromdarkness.models.Level;
+import com.example.escapefromdarkness.models.Setting;
+import com.example.escapefromdarkness.models.Skill;
 import com.example.escapefromdarkness.services.AccountService;
-import lombok.AllArgsConstructor;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -27,6 +30,31 @@ public class AccountController {
   @GetMapping("/{id}")
   public ResponseEntity<Account> find(@PathVariable("id") String id) {
     return ResponseEntity.ok(accountService.findOne(id));
+  }
+
+  @GetMapping("/{id}/skills")
+  public ResponseEntity<List<Skill>> findSkillsByUsername(@PathVariable("id") String id) {
+    return ResponseEntity.ok(accountService.findSkillsByUsername(id));
+  }
+
+  @GetMapping("/{id}/level")
+  public ResponseEntity<Level> findLevelByUsername(@PathVariable("id") String id) throws InvalidRequestException {
+    return ResponseEntity.ok(accountService.findLevelByUsername(id));
+  }
+
+  @PutMapping("/{id}/level")
+  public ResponseEntity<Level> updateLevelByUsername(@PathVariable("id") String id, @RequestBody AccountLevelUpdateDto accountLevelUpdateDto) throws InvalidRequestException {
+    return ResponseEntity.ok(accountService.updateLevelByUsername(id, accountLevelUpdateDto));
+  }
+
+  @GetMapping("/{id}/setting")
+  public ResponseEntity<Setting> findSettingByUsername(@PathVariable("id") String id) throws InvalidRequestException {
+    return ResponseEntity.ok(accountService.findSettingByUsername(id));
+  }
+
+  @PutMapping("/{id}/setting")
+  public ResponseEntity<Setting> updateSettingByUsername(@PathVariable("id") String id, @RequestBody AccountSettingUpdateDto accountSettingUpdateDto) throws InvalidRequestException {
+    return ResponseEntity.ok(accountService.updateSettingByUsername(id, accountSettingUpdateDto));
   }
 
   @PostMapping("/register")

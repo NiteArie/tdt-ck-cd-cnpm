@@ -10,13 +10,8 @@ public class Killed {
   @Id
   @GeneratedValue
   private Integer id;
-  
-  @ManyToOne
-  @JoinColumn(name = "username")
-  private Account account;
 
+  private String username;
 
-  @OneToOne
-  @JoinColumn(name = "idEnemy")
-  private Enemy enemy;
+  private String idEnemy;
 }

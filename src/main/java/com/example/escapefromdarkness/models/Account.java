@@ -1,5 +1,6 @@
 package com.example.escapefromdarkness.models;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.Data;
 
 import javax.persistence.*;
@@ -15,10 +16,6 @@ public class Account {
 
   private String password;
 
-  @OneToOne
-  @JoinColumn(name = "idLevel")
-  private Level level;
-
   private int coin;
 
   private int currentHealth;
@@ -29,15 +26,9 @@ public class Account {
 
   private double y;
 
-  @OneToMany(mappedBy = "account", cascade = CascadeType.ALL)
-  Set<Killed> killedSet = new HashSet<>();
+  @JsonIgnore
+  private String idLevel;
 
-  @OneToOne
-  @JoinColumn(name = "idSetting")
-  private Setting setting;
-
-
-  @OneToOne
-  @JoinColumn(name = "idSkill")
-  private Skill skill;
+  @JsonIgnore
+  private String idSetting;
 }
