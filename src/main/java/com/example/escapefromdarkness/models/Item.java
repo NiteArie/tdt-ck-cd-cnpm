@@ -11,7 +11,7 @@ import javax.persistence.Id;
 public class Item {
   @Id
   @GeneratedValue
-  private int id;
+  private String id;
 
   private int idType;
 

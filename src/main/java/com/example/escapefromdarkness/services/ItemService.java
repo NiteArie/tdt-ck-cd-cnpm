@@ -17,7 +17,7 @@ public class ItemService {
   }
 
   public Item findOne(String id) {
-    var item = itemRepository.findById(Integer.parseInt(id));
+    var item = itemRepository.findById(id);
     if (item.isEmpty()) {
       return null;
     }

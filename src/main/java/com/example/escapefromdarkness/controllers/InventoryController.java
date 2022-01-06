@@ -1,13 +1,13 @@
 package com.example.escapefromdarkness.controllers;
 
+import com.example.escapefromdarkness.dto.InventoryCreateDto;
+import com.example.escapefromdarkness.dto.InventoryUpdateDto;
+import com.example.escapefromdarkness.exception.InvalidRequestException;
 import com.example.escapefromdarkness.models.Inventory;
 import com.example.escapefromdarkness.services.InventoryService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
@@ -22,8 +22,23 @@ public class InventoryController {
     return ResponseEntity.ok(inventoryService.findAll());
   }
 
-  @GetMapping("/{id}")
-  public ResponseEntity<Inventory> findOne(@PathVariable("id") String id) {
-    return ResponseEntity.ok(inventoryService.findOne(id));
+  @GetMapping("/users/{id}")
+  public ResponseEntity<List<Inventory>> findAllOfUser(@PathVariable("id") String id) {
+    return ResponseEntity.ok(inventoryService.findAllOfUser(id));
+  }
+
+//  @GetMapping("/{id}")
+//  public ResponseEntity<Inventory> findOne(@PathVariable("id") String id) {
+//    return ResponseEntity.ok(inventoryService.findOne(id));
+//  }
+
+  @PostMapping()
+  public ResponseEntity<Inventory> create(@RequestBody InventoryCreateDto inventoryCreateDto) throws InvalidRequestException {
+    return ResponseEntity.ok(inventoryService.create(inventoryCreateDto));
+  }
+
+  @PutMapping("/{id}")
+  public ResponseEntity<Inventory> update(@PathVariable("id") String id, @RequestBody InventoryUpdateDto inventoryUpdateDto) throws InvalidRequestException {
+    return ResponseEntity.ok(inventoryService.update(id, inventoryUpdateDto));
   }
 }
