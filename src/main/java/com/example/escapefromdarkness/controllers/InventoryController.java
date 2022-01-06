@@ -32,13 +32,13 @@ public class InventoryController {
 //    return ResponseEntity.ok(inventoryService.findOne(id));
 //  }
 
-  @PostMapping()
-  public ResponseEntity<Inventory> create(@RequestBody InventoryCreateDto inventoryCreateDto) throws InvalidRequestException {
-    return ResponseEntity.ok(inventoryService.create(inventoryCreateDto));
-  }
+//  @PostMapping()
+//  public ResponseEntity<Inventory> create(@RequestBody InventoryCreateDto inventoryCreateDto) throws InvalidRequestException {
+//    return ResponseEntity.ok(inventoryService.create(inventoryCreateDto));
+//  }
 
-  @PutMapping("/{id}")
-  public ResponseEntity<Inventory> update(@PathVariable("id") String id, @RequestBody InventoryUpdateDto inventoryUpdateDto) throws InvalidRequestException {
-    return ResponseEntity.ok(inventoryService.update(id, inventoryUpdateDto));
+  @PutMapping()
+  public ResponseEntity<Inventory> update(@RequestBody InventoryUpdateDto inventoryUpdateDto) throws InvalidRequestException {
+    return ResponseEntity.ok(inventoryService.update(inventoryUpdateDto));
   }
 }

@@ -44,10 +44,14 @@ public class InventoryService {
     return inventoryRepository.save(inventory);
   }
 
-  public Inventory update(String inventoryId, InventoryUpdateDto inventoryUpdateDto) throws InvalidRequestException {
+  public Inventory update(InventoryUpdateDto inventoryUpdateDto) throws InvalidRequestException {
     var inventory = inventoryRepository.findById(new InventoryId(inventoryUpdateDto.getUsername(), inventoryUpdateDto.getIdItem()));
     if (inventory.isEmpty()) {
-      throw new InvalidRequestException(String.format("Item %s doesn't exist in user %s inventory", inventoryUpdateDto.getIdItem(), inventoryUpdateDto.getUsername()));
+      Inventory newInventory = new Inventory();
+      newInventory.setUsername(inventoryUpdateDto.getUsername());
+      newInventory.setQuantity(inventoryUpdateDto.getQuantity());
+      newInventory.setIdItem(inventoryUpdateDto.getIdItem());
+      return inventoryRepository.save(newInventory);
     }
     if (!inventory.get().getUsername().equals(inventoryUpdateDto.getUsername())) {
       throw new InvalidRequestException("User inventory to be updated must be the same");
