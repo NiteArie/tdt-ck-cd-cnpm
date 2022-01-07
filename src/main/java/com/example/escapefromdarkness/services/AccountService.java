@@ -109,9 +109,9 @@ public class AccountService {
     account.setX(10.0);
     account.setY(-6.0);
 
-    var level = levelRepository.findById("1");
+    var level = levelRepository.findById(1);
     if (level.isPresent()) {
-      account.setIdLevel("1");
+      account.setIdLevel(1);
     }
 
     Setting setting = new Setting();

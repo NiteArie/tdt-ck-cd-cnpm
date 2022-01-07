@@ -17,7 +17,7 @@ public class LevelService {
   }
 
   public Level findOne(String id) {
-    var level = levelRepository.findById(id);
+    var level = levelRepository.findById(Integer.parseInt(id));
     if (level.isEmpty()) {
       return null;
     }

@@ -6,5 +6,5 @@ import lombok.RequiredArgsConstructor;
 @Data
 @RequiredArgsConstructor
 public class AccountLevelUpdateDto {
-  private String level;
+  private int level;
 }

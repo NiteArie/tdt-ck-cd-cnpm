@@ -11,7 +11,7 @@ import javax.persistence.Id;
 public class Level {
   @Id
   @Column(name = "idLevel")
-  private String idLevel;
+  private Integer idLevel;
 
   private int dameAttack;
 
