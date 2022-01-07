@@ -4,14 +4,8 @@ import com.example.escapefromdarkness.dto.AccountCreateDto;
 import com.example.escapefromdarkness.dto.AccountLevelUpdateDto;
 import com.example.escapefromdarkness.dto.AccountSettingUpdateDto;
 import com.example.escapefromdarkness.exception.InvalidRequestException;
-import com.example.escapefromdarkness.models.Account;
-import com.example.escapefromdarkness.models.Level;
-import com.example.escapefromdarkness.models.Setting;
-import com.example.escapefromdarkness.models.Skill;
-import com.example.escapefromdarkness.repositories.AccountRepository;
-import com.example.escapefromdarkness.repositories.LevelRepository;
-import com.example.escapefromdarkness.repositories.SettingRepository;
-import com.example.escapefromdarkness.repositories.SkillRepository;
+import com.example.escapefromdarkness.models.*;
+import com.example.escapefromdarkness.repositories.*;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
@@ -27,6 +21,7 @@ public class AccountService {
   private final SettingRepository settingRepository;
   private final LevelRepository levelRepository;
   private final SkillRepository skillRepository;
+  private final DevilFruitRepository devilFruitRepository;
   private final BCryptPasswordEncoder bCryptPasswordEncoder;
 
   public List<Account> findAll() {
@@ -79,7 +74,6 @@ public class AccountService {
   }
 
   public Setting updateSettingByUsername(String id, AccountSettingUpdateDto accountSettingUpdateDto) throws InvalidRequestException {
-    System.out.println(id);
     var account = accountRepository.findById(id);
 
     if (account.isEmpty()) {
@@ -91,6 +85,15 @@ public class AccountService {
     setting.get().setHasEffect(accountSettingUpdateDto.isHasEffect());
     setting.get().setHasMusic(accountSettingUpdateDto.isHasMusic());
     return settingRepository.save(setting.get());
+  }
+
+  public List<DevilFruit> findDevilFruitsByUsername(String id) throws InvalidRequestException {
+    var account = accountRepository.findById(id);
+    if (account.isEmpty()) {
+      throw new InvalidRequestException("Account with username doesn't exist");
+    }
+    var devilFruits = devilFruitRepository.findByUsername(id);
+    return devilFruits;
   }
 
   @Transactional

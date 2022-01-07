@@ -2,8 +2,10 @@ package com.example.escapefromdarkness.services;
 
 import com.example.escapefromdarkness.dto.game.GameSaveDto;
 import com.example.escapefromdarkness.exception.InvalidRequestException;
+import com.example.escapefromdarkness.models.DevilFruit;
 import com.example.escapefromdarkness.models.Inventory;
 import com.example.escapefromdarkness.repositories.AccountRepository;
+import com.example.escapefromdarkness.repositories.DevilFruitRepository;
 import com.example.escapefromdarkness.repositories.InventoryRepository;
 import com.example.escapefromdarkness.repositories.SettingRepository;
 import lombok.RequiredArgsConstructor;
@@ -18,11 +20,10 @@ public class GameService {
   private final AccountRepository accountRepository;
   private final InventoryRepository inventoryRepository;
   private final SettingRepository settingRepository;
+  private final DevilFruitRepository devilFruitRepository;
 
   @Transactional
   public Boolean saveGame(String username, GameSaveDto gameSaveDto) throws InvalidRequestException {
-    System.out.println(username);
-    System.out.println(gameSaveDto.getUsername());
     if (!username.equals(gameSaveDto.getUsername())) {
       throw new InvalidRequestException("Username must be the same to be able to save");
     }
@@ -58,6 +59,15 @@ public class GameService {
     }).collect(Collectors.toList());
 
     inventoryRepository.saveAll(newInventories);
+
+    var newDevilFruits = gameSaveDto.getDevilFruit().stream().map(devilFruit -> {
+      var newDevilFruit = new DevilFruit();
+      newDevilFruit.setId(devilFruit.getId());
+      newDevilFruit.setUsername(username);
+      return newDevilFruit;
+    }).collect(Collectors.toList());
+
+    devilFruitRepository.saveAll(newDevilFruits);
 
     return Boolean.TRUE;
   }

@@ -23,4 +23,6 @@ public class GameSaveDto {
   private List<GameSaveInventoryDto> inventory;
 
   private GameSaveSettingDto setting;
+
+  private List<GameSaveDevilFruitDto> devilFruit;
 }

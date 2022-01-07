@@ -4,10 +4,7 @@ import com.example.escapefromdarkness.dto.AccountCreateDto;
 import com.example.escapefromdarkness.dto.AccountLevelUpdateDto;
 import com.example.escapefromdarkness.dto.AccountSettingUpdateDto;
 import com.example.escapefromdarkness.exception.InvalidRequestException;
-import com.example.escapefromdarkness.models.Account;
-import com.example.escapefromdarkness.models.Level;
-import com.example.escapefromdarkness.models.Setting;
-import com.example.escapefromdarkness.models.Skill;
+import com.example.escapefromdarkness.models.*;
 import com.example.escapefromdarkness.services.AccountService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
@@ -55,6 +52,11 @@ public class AccountController {
   @PutMapping("/{id}/setting")
   public ResponseEntity<Setting> updateSettingByUsername(@PathVariable("id") String id, @RequestBody AccountSettingUpdateDto accountSettingUpdateDto) throws InvalidRequestException {
     return ResponseEntity.ok(accountService.updateSettingByUsername(id, accountSettingUpdateDto));
+  }
+
+  @GetMapping("/{id}/devil-fruits")
+  public ResponseEntity<List<DevilFruit>> findDevilFruitsByUsername(@PathVariable("id") String id) throws InvalidRequestException {
+    return ResponseEntity.ok(accountService.findDevilFruitsByUsername(id));
   }
 
   @PostMapping("/register")
