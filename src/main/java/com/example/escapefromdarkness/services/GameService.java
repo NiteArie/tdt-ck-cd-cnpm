@@ -4,10 +4,8 @@ import com.example.escapefromdarkness.dto.game.GameSaveDto;
 import com.example.escapefromdarkness.exception.InvalidRequestException;
 import com.example.escapefromdarkness.models.DevilFruit;
 import com.example.escapefromdarkness.models.Inventory;
-import com.example.escapefromdarkness.repositories.AccountRepository;
-import com.example.escapefromdarkness.repositories.DevilFruitRepository;
-import com.example.escapefromdarkness.repositories.InventoryRepository;
-import com.example.escapefromdarkness.repositories.SettingRepository;
+import com.example.escapefromdarkness.models.PlayerSkill;
+import com.example.escapefromdarkness.repositories.*;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
@@ -21,6 +19,7 @@ public class GameService {
   private final InventoryRepository inventoryRepository;
   private final SettingRepository settingRepository;
   private final DevilFruitRepository devilFruitRepository;
+  private final PlayerSkillRepository playerSkillRepository;
 
   @Transactional
   public Boolean saveGame(String username, GameSaveDto gameSaveDto) throws InvalidRequestException {
@@ -50,6 +49,8 @@ public class GameService {
 
     settingRepository.save(setting.get());
 
+    inventoryRepository.deleteByUsername(username);
+
     var newInventories = gameSaveDto.getInventory().stream().map(inventory -> {
       var newInventory = new Inventory();
       newInventory.setUsername(username);
@@ -68,6 +69,17 @@ public class GameService {
     }).collect(Collectors.toList());
 
     devilFruitRepository.saveAll(newDevilFruits);
+
+    playerSkillRepository.deleteByUsername(username);
+
+    var newSkills = gameSaveDto.getSkill().stream().map(skill -> {
+      var newSkill = new PlayerSkill();
+      newSkill.setIdSkill(skill.getId());
+      newSkill.setUsername(username);
+      return newSkill;
+    }).collect(Collectors.toList());
+
+    playerSkillRepository.saveAll(newSkills);
 
     return Boolean.TRUE;
   }

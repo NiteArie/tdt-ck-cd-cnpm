@@ -25,4 +25,6 @@ public class GameSaveDto {
   private GameSaveSettingDto setting;
 
   private List<GameSaveDevilFruitDto> devilFruit;
+
+  private List<GameSaveSkillDto> skill;
 }

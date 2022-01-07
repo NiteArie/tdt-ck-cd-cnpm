@@ -20,7 +20,7 @@ public class AccountService {
   private final AccountRepository accountRepository;
   private final SettingRepository settingRepository;
   private final LevelRepository levelRepository;
-  private final SkillRepository skillRepository;
+  private final PlayerSkillRepository playerSkillRepository;
   private final DevilFruitRepository devilFruitRepository;
   private final BCryptPasswordEncoder bCryptPasswordEncoder;
 
@@ -36,8 +36,8 @@ public class AccountService {
     return account.get();
   }
 
-  public List<Skill> findSkillsByUsername(String id) {
-    var skills = skillRepository.findByUsername(id);
+  public List<PlayerSkill> findSkillsByUsername(String id) {
+    var skills = playerSkillRepository.findByUsername(id);
     return skills;
   }
 

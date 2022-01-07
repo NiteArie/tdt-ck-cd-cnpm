@@ -30,7 +30,7 @@ public class AccountController {
   }
 
   @GetMapping("/{id}/skills")
-  public ResponseEntity<List<Skill>> findSkillsByUsername(@PathVariable("id") String id) {
+  public ResponseEntity<List<PlayerSkill>> findSkillsByUsername(@PathVariable("id") String id) {
     return ResponseEntity.ok(accountService.findSkillsByUsername(id));
   }
 
