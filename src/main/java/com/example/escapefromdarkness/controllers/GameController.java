@@ -17,4 +17,9 @@ public class GameController {
   public ResponseEntity<Boolean> saveGame(@PathVariable("id") String username, @RequestBody GameSaveDto gameSaveDto) throws InvalidRequestException {
     return ResponseEntity.ok(gameService.saveGame(username, gameSaveDto));
   }
+
+  @PostMapping("/new/{id}")
+  public ResponseEntity<Boolean> newGame(@PathVariable("id") String username) throws InvalidRequestException {
+    return ResponseEntity.ok(gameService.newGame(username));
+  }
 }

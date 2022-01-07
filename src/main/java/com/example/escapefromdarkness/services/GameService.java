@@ -20,6 +20,7 @@ public class GameService {
   private final SettingRepository settingRepository;
   private final DevilFruitRepository devilFruitRepository;
   private final PlayerSkillRepository playerSkillRepository;
+  private final LevelRepository levelRepository;
 
   @Transactional
   public Boolean saveGame(String username, GameSaveDto gameSaveDto) throws InvalidRequestException {
@@ -80,6 +81,35 @@ public class GameService {
     }).collect(Collectors.toList());
 
     playerSkillRepository.saveAll(newSkills);
+
+    return Boolean.TRUE;
+  }
+
+  @Transactional
+  public Boolean newGame(String username) throws InvalidRequestException {
+    var account = accountRepository.findById(username);
+    if (account.isEmpty()) {
+      throw new InvalidRequestException(String.format("Account with username (%s) doesn't exist", username));
+    }
+
+    account.get().setCoin(200);
+    account.get().setCurrentHealth(1000);
+    account.get().setCurrentMana(1000);
+    account.get().setX(10.0);
+    account.get().setY(-6.0);
+
+    var level = levelRepository.findById(1);
+    if (level.isPresent()) {
+      account.get().setIdLevel(1);
+    }
+
+    accountRepository.save(account.get());
+
+    inventoryRepository.deleteByUsername(username);
+
+    devilFruitRepository.deleteByUsername(username);
+
+    playerSkillRepository.deleteByUsername(username);
 
     return Boolean.TRUE;
   }

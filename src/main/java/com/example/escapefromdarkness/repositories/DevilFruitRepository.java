@@ -8,4 +8,6 @@ import java.util.List;
 
 public interface DevilFruitRepository extends JpaRepository<DevilFruit, DevilFruitId> {
   List<DevilFruit> findByUsername(String username);
+
+  long deleteByUsername(String username);
 }
