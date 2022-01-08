@@ -26,7 +26,6 @@ public class Account {
 
   private double y;
 
-  @JsonIgnore
   private Integer idLevel;
 
   @JsonIgnore
