@@ -59,6 +59,11 @@ public class AccountController {
     return ResponseEntity.ok(accountService.findDevilFruitsByUsername(id));
   }
 
+  @GetMapping("/{id}/killed")
+  public ResponseEntity<List<Killed>> findKilledsByUsername(@PathVariable("id") String id) throws InvalidRequestException {
+    return ResponseEntity.ok(accountService.findKilledByUsername(id));
+  }
+
   @PostMapping("/register")
   public ResponseEntity<Account> create(@RequestBody AccountCreateDto accountCreateDto) throws InvalidRequestException {
     return ResponseEntity.ok(accountService.create(accountCreateDto));

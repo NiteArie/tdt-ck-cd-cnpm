@@ -22,6 +22,7 @@ public class AccountService {
   private final LevelRepository levelRepository;
   private final PlayerSkillRepository playerSkillRepository;
   private final DevilFruitRepository devilFruitRepository;
+  private final KilledRepository killedRepository;
   private final BCryptPasswordEncoder bCryptPasswordEncoder;
 
   public List<Account> findAll() {
@@ -94,6 +95,15 @@ public class AccountService {
     }
     var devilFruits = devilFruitRepository.findByUsername(id);
     return devilFruits;
+  }
+
+  public List<Killed> findKilledByUsername(String id) throws InvalidRequestException {
+    var account = accountRepository.findById(id);
+    if (account.isEmpty()) {
+      throw new InvalidRequestException("Account with username doesn't exist");
+    }
+    var killed = killedRepository.findByUsername(id);
+    return killed;
   }
 
   @Transactional

@@ -11,7 +11,7 @@ import javax.persistence.Id;
 public class Enemy {
   @Id
   @Column(name = "id")
-  private String id;
+  private Integer id;
 
   private int health;
 

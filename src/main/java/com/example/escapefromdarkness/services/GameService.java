@@ -4,6 +4,7 @@ import com.example.escapefromdarkness.dto.game.GameSaveDto;
 import com.example.escapefromdarkness.exception.InvalidRequestException;
 import com.example.escapefromdarkness.models.DevilFruit;
 import com.example.escapefromdarkness.models.Inventory;
+import com.example.escapefromdarkness.models.Killed;
 import com.example.escapefromdarkness.models.PlayerSkill;
 import com.example.escapefromdarkness.repositories.*;
 import lombok.RequiredArgsConstructor;
@@ -20,6 +21,7 @@ public class GameService {
   private final SettingRepository settingRepository;
   private final DevilFruitRepository devilFruitRepository;
   private final PlayerSkillRepository playerSkillRepository;
+  private final KilledRepository killedRepository;
   private final LevelRepository levelRepository;
 
   @Transactional
@@ -81,6 +83,17 @@ public class GameService {
     }).collect(Collectors.toList());
 
     playerSkillRepository.saveAll(newSkills);
+
+    killedRepository.deleteByUsername(username);
+
+    var newEnemies = gameSaveDto.getEnemy().stream().map(enemy -> {
+      var newEnemy = new Killed();
+      newEnemy.setIdEnemy(enemy.getId());
+      newEnemy.setUsername(username);
+      return newEnemy;
+    }).collect(Collectors.toList());
+
+    killedRepository.saveAll(newEnemies);
 
     return Boolean.TRUE;
   }

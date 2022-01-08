@@ -22,8 +22,8 @@ public class KilledController {
     return ResponseEntity.ok(killedService.findAll());
   }
 
-  @GetMapping("/{id}")
-  public ResponseEntity<Killed> findOne(@PathVariable("id") String id) {
-    return ResponseEntity.ok(killedService.findOne(id));
-  }
+//  @GetMapping("/{id}")
+//  public ResponseEntity<Killed> findOne(@PathVariable("id") String id) {
+//    return ResponseEntity.ok(killedService.findOne(id));
+//  }
 }

@@ -16,11 +16,11 @@ public class KilledService {
     return killedRepository.findAll();
   }
 
-  public Killed findOne(String id) {
-    var killed = killedRepository.findById(id);
-    if (killed.isEmpty()) {
-      return null;
-    }
-    return killed.get();
-  }
+//  public Killed findOne(String id) {
+//    var killed = killedRepository.findById(id);
+//    if (killed.isEmpty()) {
+//      return null;
+//    }
+//    return killed.get();
+//  }
 }

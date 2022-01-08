@@ -17,7 +17,7 @@ public class EnemyService {
   }
 
   public Enemy findOne(String id) {
-    var enemy = enemyRepository.findById(id);
+    var enemy = enemyRepository.findById(Integer.parseInt(id));
     if (enemy.isEmpty()) {
       return null;
     }

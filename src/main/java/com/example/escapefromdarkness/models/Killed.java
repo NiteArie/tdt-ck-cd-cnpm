@@ -13,5 +13,5 @@ public class Killed {
 
   private String username;
 
-  private String idEnemy;
+  private Integer idEnemy;
 }

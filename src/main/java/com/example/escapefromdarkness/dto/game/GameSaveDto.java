@@ -27,4 +27,6 @@ public class GameSaveDto {
   private List<GameSaveDevilFruitDto> devilFruit;
 
   private List<GameSaveSkillDto> skill;
+
+  private List<GameSaveKilledDto> enemy;
 }
