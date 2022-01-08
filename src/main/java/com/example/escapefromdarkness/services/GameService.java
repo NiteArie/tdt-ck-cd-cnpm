@@ -124,6 +124,8 @@ public class GameService {
 
     playerSkillRepository.deleteByUsername(username);
 
+    killedRepository.deleteByUsername(username);
+
     return Boolean.TRUE;
   }
 }
